@@ -1,0 +1,71 @@
+version: "3.7"
+
+# See https://github.com/UoGSoE/docker-stuff for the origins of this file
+
+x-env:
+  environment: &default-env
+    APP_NAME: RideBar
+    APP_ENV: local
+    APP_KEY: base64:hBXltRdGQv9/dJc14Sci1jGO2xiofSgcGpqiKUqR66A=
+    APP_DEBUG: 1
+    APP_URL: http://localhost
+    MAIL_DRIVER: smtp
+    MAIL_HOST: mailhog
+    MAIL_PORT: 1025
+    REDIS_HOST: redis
+    QUEUE_CONNECTION: redis
+    SESSION_DRIVER: redis
+    DB_CONNECTION: sqlite
+    #DB_HOST: mysql
+    #DB_PORT: 3306
+    #DB_DATABASE: homestead
+    #DB_USERNAME: homestead
+    #DB_PASSWORD: secret
+    LOG_CHANNEL: stderr
+
+services:
+  app:
+    image: ${IMAGE_NAME}
+    environment:
+      CONTAINER_ROLE: app
+      <<: *default-env
+    ports:
+      - "${APP_PORT:-3000}:80"
+    build:
+      context: .
+      target: dev
+    # volumes:
+    #   - .:/var/www/html
+    # secrets:
+    #   - source: dotenv
+    #     target: .env
+    depends_on:
+      - redis
+      # - mysql
+      # - mailhog
+
+  redis:
+    image: redis:5.0.4
+    volumes:
+      - redis:/data
+
+  # mysql:
+  #   image: mysql:5.7
+  #   volumes:
+  #     - mysql:/var/lib/mysql
+  #   environment:
+  #     MYSQL_DATABASE: homestead
+  #     MYSQL_ROOT_PASSWORD: root
+  #     MYSQL_USER: homestead
+  #     MYSQL_PASSWORD: secret
+
+  # mailhog:
+  #   image: mailhog/mailhog
+  #   ports:
+  #     - "3025:8025"
+
+volumes:
+  redis:
+    driver: "local"
+  mysql:
+    driver: "local"
