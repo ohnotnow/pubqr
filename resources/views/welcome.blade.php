@@ -50,6 +50,9 @@
                         <li class="inline px-4">
                             <a href="{{ route('order.history') }}" class="font-medium text-gray-600 hover:text-gray-500 focus:outline-none focus:underline transition ease-in-out duration-150">Order History</a>
                         </li>
+                        <li class="inline px-4">
+                            <a href="{{ route('inventory.index') }}" class="font-medium text-gray-600 hover:text-gray-500 focus:outline-none focus:underline transition ease-in-out duration-150">Inventory</a>
+                        </li>
                     </ul>
                     </div>
                 </div>

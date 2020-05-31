@@ -10,7 +10,7 @@ class CodeGenerator
 
     public function __construct()
     {
-        $this->hasher = new Hashids(config('pubqr.hashid_seed', 'sdflwieruqern'));
+        $this->hasher = new Hashids(config('pubqr.hashid_seed', 'sdflwieruqern'), config('pubqr.hashid_length', 6));
     }
 
     public function generate(int $id): string

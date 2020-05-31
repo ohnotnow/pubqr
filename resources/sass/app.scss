@@ -49,3 +49,13 @@
  * .bg-pattern-graph-paper { ... }
  * .skew-45 { ... }
  */
+
+.default-link {
+    @apply font-medium text-gray-600 transition ease-in-out duration-150;
+}
+.default-link:hover {
+    @apply text-gray-500;
+}
+.default-link:focus {
+    @apply outline-none underline;
+}

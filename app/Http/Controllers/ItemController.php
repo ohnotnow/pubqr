@@ -15,4 +15,18 @@ class ItemController extends Controller
             'item' => $item,
         ]);
     }
+
+    public function create()
+    {
+        return view('item.edit', [
+            'item' => new Item,
+        ]);
+    }
+
+    public function edit(Item $item)
+    {
+        return view('item.edit', [
+            'item' => $item,
+        ]);
+    }
 }

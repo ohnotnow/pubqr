@@ -29,4 +29,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('bar/orders', 'OrderController@index')->name('order.index');
     Route::get('bar/history', 'OrderHistoryController@index')->name('order.history');
+
+    Route::get('inventory', 'InventoryController@index')->name('inventory.index');
+
+    Route::get('item/{item}/edit', "ItemController@edit")->name('item.edit');
+    Route::get('item/create', "ItemController@edit")->name('item.create');
+
+    Route::get('qrcodes', "QrCodeController@show")->name('download.qrcodes');
 });
