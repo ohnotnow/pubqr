@@ -10,6 +10,8 @@ class ItemEditor extends Component
 {
     public $item;
 
+    public $editingExistingItem = false;
+
     public $confirmDelete = false;
 
     public $deleteButtonText = "Delete Item";
@@ -17,6 +19,7 @@ class ItemEditor extends Component
     public function mount($item)
     {
         $this->item = $item;
+        $this->editingExistingItem = isset($item['id']);
     }
 
     public function render()
@@ -32,30 +35,30 @@ class ItemEditor extends Component
             'item.price' => 'required|numeric|min:1',
         ]);
 
-        if (isset($this->item['id'])) {
+        if ($this->editingExistingItem) {
             $item = Item::findOrFail($this->item['id']);
             $item->update([
                 'name' => $this->item['name'],
                 'description' => $this->item['description'],
                 'price' => $this->item['price'] * 100,
             ]);
-        } else {
-            $item = Item::create([
-                'name' => $this->item['name'],
-                'description' => $this->item['description'],
-                'price' => $this->item['price'] * 100,
-            ]);
-            $item->code = app(CodeGenerator::class)->generate($item->id);
-            $item->save();
+            return redirect(route('inventory.index'));
         }
+
+        $item = Item::create([
+            'name' => $this->item['name'],
+            'description' => $this->item['description'],
+            'price' => $this->item['price'] * 100,
+        ]);
+        $item->code = app(CodeGenerator::class)->generate($item->id);
+        $item->save();
 
         return redirect(route('inventory.index'));
     }
 
     public function deleteItem()
     {
-        // trap attempting to delete while in 'create a new item' mode
-        if (! isset($this->item['id'])) {
+        if (! $this->editingExistingItem) {
             return;
         }
 
