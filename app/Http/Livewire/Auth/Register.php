@@ -27,7 +27,7 @@ class Register extends Component
         $this->validate([
             'name' => ['required'],
             'email' => ['required', 'email', 'unique:users'],
-            'password' => ['required', 'min:8', 'same:passwordConfirmation'],
+            'password' => ['required', 'min:14', 'same:passwordConfirmation'],
         ]);
 
         $user = User::create([

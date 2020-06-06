@@ -19,7 +19,10 @@ class CreateOrdersTable extends Migration
             $table->string('contact');
             $table->unsignedInteger('quantity')->default(1);
             $table->boolean('is_fulfilled')->default(false);
+            $table->boolean('is_cancelled')->default(false);
             $table->boolean('is_paid')->default(false);
+            $table->unsignedBigInteger('fulfilled_by')->nullable();
+            $table->foreign('fulfilled_by')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -10,6 +10,8 @@
             <title>{{ config('app.name') }}</title>
         @endif
 
+        <script src="{{ mix('js/app.js') }}" defer></script>
+
         <!-- Fonts -->
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
 
@@ -28,7 +30,6 @@
 
         @yield('body')
 
-        <script src="{{ mix('js/app.js') }}"></script>
         @livewireScripts
     </body>
 </html>

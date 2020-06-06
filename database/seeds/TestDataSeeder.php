@@ -14,7 +14,10 @@ class TestDataSeeder extends Seeder
      */
     public function run()
     {
-        $admin = factory(User::class)->create(['email' => 'admin@example.com']);
+        factory(User::class)->states('superadmin')->create(['email' => 'admin@example.com']);
+        foreach (range(1, 5) as $count) {
+            factory(User::class)->create(['email' => "staff{$count}@example.com"]);
+        }
         factory(Item::class, 10)->create();
         factory(Order::class, 10)->create();
     }

@@ -24,4 +24,15 @@ class OrdersPage extends Component
 
         $order->fulfill();
     }
+
+    public function cancel($orderId)
+    {
+        $order = Order::find($orderId);
+        if (! $order) {
+            $this->error = "Could not find order {$orderId}";
+            return;
+        }
+
+        $order->cancel();
+    }
 }

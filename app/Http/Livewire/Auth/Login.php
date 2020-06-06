@@ -30,6 +30,8 @@ class Login extends Component
             return;
         }
 
+        auth()->user()->updateLoginDate();
+
         redirect(route('home'));
     }
 

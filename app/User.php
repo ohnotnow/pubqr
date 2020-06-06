@@ -35,5 +35,36 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'can_login' => 'boolean',
+        'is_superadmin' => 'boolean',
+        'login_at' => 'datetime',
     ];
+
+    public function updateLoginDate()
+    {
+        $this->login_at = now();
+        $this->save();
+    }
+
+    public function isSuperAdmin()
+    {
+        return $this->is_superadmin;
+    }
+
+    public function canLogIn()
+    {
+        return $this->can_login;
+    }
+
+    public function toggleSuperAdmin()
+    {
+        $this->is_superadmin = ! $this->is_superadmin;
+        $this->save();
+    }
+
+    public function toggleCanLogIn()
+    {
+        $this->can_login = ! $this->can_login;
+        $this->save();
+    }
 }
