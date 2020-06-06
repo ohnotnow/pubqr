@@ -22,6 +22,10 @@
     </head>
 
     <body>
+        @auth
+            @include('layouts.navbar')
+        @endauth
+
         @yield('body')
 
         <script src="{{ mix('js/app.js') }}"></script>

@@ -5,7 +5,11 @@
                 <img alt="ecommerce" class="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded" src="https://dummyimage.com/400x400">
                 <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                     <h2 class="text-sm title-font text-gray-500 tracking-widest">@if ($editingExistingItem) Edit Item @else Add a new item @endif</h2>
-                    <button>{{ $deleteButtonText }}</button>
+                    @if ($editingExistingItem)
+                        <button>
+                            {{ $deleteButtonText }}
+                        </button>
+                    @endif
                     <div class="flex mt-6 items-center pb-5">
                         <label class="block">
                             <span class="text-gray-700">Name</span>
@@ -29,7 +33,7 @@
                     <div class="flex mt-6 items-center pb-5">
                         <label class="block">
                             <span class="text-gray-700">Price</span>
-                            <input class="form-input mt-1 block w-full" type="number" wire:model="item.price">
+                            <input class="form-input mt-1 block w-full" type="number" wire:model="price_in_pounds">
                             @error('item.price')
                             <p class="p-2 text-red-500">{{ $message }}</p>
                             @enderror

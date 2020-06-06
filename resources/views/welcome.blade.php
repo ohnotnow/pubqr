@@ -6,17 +6,6 @@
             @if (Route::has('login'))
                 <div class="space-x-4">
                     @auth
-                        <a
-                            href="{{ route('logout') }}"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                            class="font-medium text-gray-600 hover:text-gray-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-                        >
-                            Log out
-                        </a>
-
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
                     @else
                         <a href="{{ route('login') }}" class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">Log in</a>
 
@@ -31,6 +20,9 @@
         <div class="flex items-center justify-center">
             <div class="flex flex-col justify-around">
                 <div class="space-y-6 mx-auto">
+                    <div class="flex justify-center">
+                    @livewire('open-close-toggle')
+                    </div>
                     <div class="">
                         <svg class="w-1/4 h-1/4 mx-auto" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" clip-rule="evenodd"/>

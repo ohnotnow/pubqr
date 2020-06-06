@@ -30,12 +30,13 @@ class OrderingTest extends TestCase
     }
 
     /** @test */
-    public function customers_can_order_an_item()
+    public function customers_can_order_an_item_when_the_shop_is_open()
     {
         $item = factory(Item::class)->create([
             'name' => 'A lovely pint',
             'code' => 'R2D2C3PO',
         ]);
+        option(['is_open' => true]);
 
         Livewire::test('order-item', ['item' => $item])
             ->assertSee($item->name)
@@ -45,11 +46,11 @@ class OrderingTest extends TestCase
             ->assertSee('Contact Details')
             ->assertSee('Place Order')
             ->assertSee('I am 18 or older and agree to pay')
+            ->assertDontSee('Bar is currently closed')
             ->set('quantity', 2)
             ->set('contact', '07123 4567891')
             ->set('confirmPayment', true)
             ->call('placeOrder')
-            ->assertDontSee('Place Order')
             ->assertSee("Order for £" . number_format(($item->price * 2) / 100, 2) . " sent");
 
         tap(Order::first(), function ($order) use ($item) {
@@ -57,6 +58,33 @@ class OrderingTest extends TestCase
             $this->assertEquals(2, $order->quantity);
             $this->assertTrue($order->item->is($item));
         });
+    }
+
+    /** @test */
+    public function customers_cant_order_an_item_if_the_shop_is_closed()
+    {
+        $item = factory(Item::class)->create([
+            'name' => 'A lovely pint',
+            'code' => 'R2D2C3PO',
+        ]);
+        option(['is_open' => false]);
+
+        Livewire::test('order-item', ['item' => $item])
+            ->assertSee($item->name)
+            ->assertSee($item->description)
+            ->assertSee($item->price_in_pounds)
+            ->assertSee('Bar is currently closed')
+            ->assertSee('Quantity')
+            ->assertSee('Contact Details')
+            ->assertSee('I am 18 or older and agree to pay')
+            ->assertDontSee('Place Order')
+            ->set('quantity', 2)
+            ->set('contact', '07123 4567891')
+            ->set('confirmPayment', true)
+            ->call('placeOrder')
+            ->assertForbidden();
+
+        $this->assertEquals(0, Order::count());
     }
 
     /** @test */

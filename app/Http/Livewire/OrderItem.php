@@ -44,6 +44,10 @@ class OrderItem extends Component
 
     public function placeOrder()
     {
+        if (! option('is_open')) {
+            abort(403, 'Bar is closed');
+        }
+
         $this->validate([
             'contact' => 'required|not_regex:/\@/',
             'confirmPayment' => 'required:accepted',

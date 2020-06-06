@@ -16,10 +16,13 @@ class ItemEditor extends Component
 
     public $deleteButtonText = "Delete Item";
 
+    public $price_in_pounds;
+
     public function mount($item)
     {
         $this->item = $item;
         $this->editingExistingItem = isset($item['id']);
+        $this->price_in_pounds = number_format(($item['price'] ?? 0) / 100, 2);
     }
 
     public function render()
@@ -32,7 +35,7 @@ class ItemEditor extends Component
         $this->validate([
             'item.name' => 'required',
             'item.description' => 'sometimes|max:1024',
-            'item.price' => 'required|numeric|min:1',
+            'price_in_pounds' => 'required|numeric|min:1',
         ]);
 
         if ($this->editingExistingItem) {
@@ -40,7 +43,7 @@ class ItemEditor extends Component
             $item->update([
                 'name' => $this->item['name'],
                 'description' => $this->item['description'],
-                'price' => $this->item['price'] * 100,
+                'price' => $this->price_in_pounds * 100,
             ]);
             return redirect(route('inventory.index'));
         }
