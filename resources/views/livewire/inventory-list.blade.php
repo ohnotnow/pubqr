@@ -9,7 +9,7 @@
       @auth
       <div class="flex justify-center space-x-8">
           <a class="default-link" href="{{ route('item.create') }}">Add new item</a>
-          <a class="default-link" href="{{ route('download.qrcodes') }}">Download QR codes</a>
+          <a class="default-link" data-turbolinks="false" href="{{ route('download.qrcodes') }}">Download QR codes</a>
       </div>
       @endauth
     </div>

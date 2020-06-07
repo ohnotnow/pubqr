@@ -39,4 +39,5 @@ Route::middleware('auth')->group(function () {
     Route::get('qrcodes', "QrCodeController@show")->name('download.qrcodes');
 
     Route::livewire('user', 'user-index')->name('user.index');
+    Route::get('user/{user}/edit', 'UserController@edit')->name('user.edit');
 });

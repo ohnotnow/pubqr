@@ -2,9 +2,13 @@
 
 namespace Tests\Feature;
 
+use App\Mail\ResetYourPasswordMail;
 use App\User;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -141,5 +145,67 @@ class UserManagementTest extends TestCase
 
         $this->assertEquals(2, User::count());
         $this->assertDatabaseMissing('users', ['id' => $otherStaff->id]);
+    }
+
+    /** @test */
+    public function super_admins_can_create_new_users()
+    {
+        Mail::fake();
+        $superAdmin = factory(User::class)->states('superadmin')->create();
+
+        Livewire::actingAs($superAdmin)
+            ->test('user-editor', ['user' => (new User)->toArray()])
+            ->assertSee('Add a New User')
+            ->set('user.name', 'fred')
+            ->set('user.email', 'fred@example.com')
+            ->call('save')
+            ->assertRedirect(route('user.index'));
+
+        $user = User::where('name', '=', 'fred')->firstOrFail();
+        $this->assertEquals('fred@example.com', $user->email);
+        $this->assertNotNull($user->password);
+        $this->assertTrue($user->canLogIn());
+        Mail::assertNothingQueued();
+    }
+
+    /** @test */
+    public function super_admins_can_edit_existing_users()
+    {
+        Mail::fake();
+        $superAdmin = factory(User::class)->states('superadmin')->create();
+        $user = factory(User::class)->create();
+
+        Livewire::actingAs($superAdmin)
+            ->test('user-editor', ['user' => $user->toArray()])
+            ->assertSee('Edit User')
+            ->set('user.name', 'fred')
+            ->set('user.email', 'fred@example.com')
+            ->call('save')
+            ->assertRedirect(route('user.index'));
+
+        $user = User::where('name', '=', 'fred')->firstOrFail();
+        $this->assertEquals('fred@example.com', $user->email);
+        $this->assertNotNull($user->password);
+        $this->assertTrue($user->canLogIn());
+        Mail::assertNothingQueued();
+    }
+
+    /** @test */
+    public function super_admins_can_force_a_user_to_reset_their_password()
+    {
+        Notification::fake();
+        $superAdmin = factory(User::class)->states('superadmin')->create();
+        $user = factory(User::class)->create();
+
+        Livewire::actingAs($superAdmin)
+            ->test('user-editor', ['user' => $user->toArray()])
+            ->assertSee('Edit User')
+            ->set('reset_password', true)
+            ->call('save')
+            ->assertRedirect(route('user.index'));
+
+        Notification::assertSentTo(
+            [$user], ResetPassword::class
+        );
     }
 }
