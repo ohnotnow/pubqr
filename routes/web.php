@@ -41,4 +41,6 @@ Route::middleware('auth')->group(function () {
     Route::livewire('user', 'user-index')->name('user.index');
     Route::get('user/{user}/edit', 'UserController@edit')->name('user.edit');
     Route::get('user/create', 'UserController@create')->name('user.create');
+
+    Route::get('backup', 'BackupController@show')->name('download.backup');
 });

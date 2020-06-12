@@ -11,6 +11,9 @@
         <a href="{{ route('order.history') }}" class="default-link mr-6 @if (Route::currentRouteName() == 'order.history') border-b-2 @endif">Order History</a>
         <a href="{{ route('inventory.index') }}" class="default-link mr-6 @if (Route::currentRouteName() == 'inventory.index') border-b-2 @endif">Inventory</a>
         <a href="{{ route('user.index') }}" class="default-link mr-6 @if (Route::currentRouteName() == 'user.index') border-b-2 @endif">Staff</a>
+        @superadmin
+        <a href="{{ route('download.backup') }}" data-turbolinks="false" class="default-link mr-6">Backup</a>
+        @endsuperadmin
     </nav>
     @auth
         <a
