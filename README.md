@@ -6,6 +6,17 @@ and pay for them with a minimum of set up and no need for online payment process
 
 ![Screenshot of PubQR](screenshot.png)
 
+## Features
+
+* Add & remove items available to buy - with a toggle for if they are currently available
+* Download QR codes that link to each item which can be printed onto a menu - then customers can just scan them on their phones and be taken straight to the right page
+* Customers can enter the amount of an item they want, a contact name or mobile number and have to tick a box to say they agree to pay
+* Show current orders, mark them as completed or cancelled
+* Toggle the shop as being open or closed
+* See the history of all the orders
+* Add and remove members of staff with their own logins
+* Download a backup of the site
+
 ## Running it
 
 To get a quick demo - the easiest way by far is to install [Docker](https://docs.docker.com/engine/install/) and then run :
