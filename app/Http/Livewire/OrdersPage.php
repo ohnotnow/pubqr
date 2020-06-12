@@ -10,7 +10,7 @@ class OrdersPage extends Component
     public function render()
     {
         return view('livewire.orders-page', [
-            'orders' => Order::with('item')->incomplete()->groupBy('contact')->orderBy('created_at')->get(),
+            'orders' => Order::with('item')->incomplete()->orderBy('created_at')->get(),
         ]);
     }
 

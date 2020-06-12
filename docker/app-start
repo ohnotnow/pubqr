@@ -4,6 +4,7 @@ set -e
 
 role=${CONTAINER_ROLE:-app}
 env=${APP_ENV:-production}
+demo=${PUBQR_DEMO}
 
 # until nc -z -v -w30 mysql 3306
 # do
@@ -21,7 +22,11 @@ php /var/www/html/artisan config:cache
 
 if [ "$role" = "app" ]; then
     touch database/database.sqlite
+    chown -R www-data database
     php artisan migrate
+    if [ -n "$demo" ]; then
+        php artisan pubqr:createdemodata
+    fi
     exec apache2-foreground
 
 else

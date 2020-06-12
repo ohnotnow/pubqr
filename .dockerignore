@@ -1,11 +1,15 @@
 /node_modules
 /public/hot
 /public/storage
+/public/images
 /storage/*.key
 /vendor
+/database/database.sqlite
 .env
 .env.backup
 .phpunit.result.cache
+.vscode
+.git
 Homestead.json
 Homestead.yaml
 npm-debug.log

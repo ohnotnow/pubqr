@@ -4,7 +4,7 @@ version: "3.7"
 
 x-env:
   environment: &default-env
-    APP_NAME: RideBar
+    APP_NAME: PubQR
     APP_ENV: local
     APP_KEY: base64:hBXltRdGQv9/dJc14Sci1jGO2xiofSgcGpqiKUqR66A=
     APP_DEBUG: 1
@@ -16,6 +16,7 @@ x-env:
     QUEUE_CONNECTION: redis
     SESSION_DRIVER: redis
     DB_CONNECTION: sqlite
+    PUBQR_DEMO: ${PUBQR_DEMO}
     #DB_HOST: mysql
     #DB_PORT: 3306
     #DB_DATABASE: homestead
