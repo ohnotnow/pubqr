@@ -16,5 +16,11 @@ PUBQR_DEMO=1 docker-compose up
 ```
 You should then be able to access the app on http://localhost:3000 as 'admin@example.com' / 'password'.
 
-To run it in production you can use the same compose technique (without the PUBQR_DEMO being set) or ideally use `docker stack deploy -c docker-compose.yml pubqr` instead of the `docker-compose up`.
-
+To run it in production you can use the same compose technique (without the PUBQR_DEMO being set) or ideally use `docker stack deploy -c docker-compose.yml pubqr` instead of the `docker-compose up`.  To create an initial user you can set three environment
+variables :
+```
+PUBQR_ADMIN_NAME=Jenny
+PUBQR_ADMIN_EMAIL=jenny@example.com
+PUBQR_ADMIN_PASSWORD=myamazingpassword
+```
+It will then create that user and make them an admin when starting up the application via `docker-compose` or `docker stack deploy`.

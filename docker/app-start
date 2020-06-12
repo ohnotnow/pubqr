@@ -27,6 +27,7 @@ if [ "$role" = "app" ]; then
     if [ -n "$demo" ]; then
         php artisan pubqr:createdemodata
     fi
+    php artisan pubqr:createadmin
     exec apache2-foreground
 
 else
