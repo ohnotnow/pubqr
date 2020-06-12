@@ -8,7 +8,7 @@ and pay for them with a minimum of set up and no need for online payment process
 
 ## Features
 
-* Add & remove items available to buy - with a toggle for if they are currently available
+* Add & remove items available to buy - with a quick toggle for if they are currently available
 * Download QR codes that link to each item which can be printed onto a menu - then customers can just scan them on their phones and be taken straight to the right page
 * Customers can enter the amount of an item they want, a contact name or mobile number and have to tick a box to say they agree to pay
 * Show current orders, mark them as completed or cancelled
