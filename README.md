@@ -4,6 +4,8 @@ This is a very basic 'shop' to allow people to order items and have them process
 to help a local brewery open a beer garden during the current 2020 lockdown so customers could safely order items
 and pay for them with a minimum of set up and no need for online payment processing.
 
+![Screenshot of PubQR](screenshot.png)
+
 ## Running it
 
 To get a quick demo - the easiest way by far is to install [Docker](https://docs.docker.com/engine/install/) and then run :
