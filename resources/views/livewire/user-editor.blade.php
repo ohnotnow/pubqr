@@ -1,8 +1,8 @@
 <div>
-<section class="text-gray-700 body-font overflow-hidden">
+    <section class="text-gray-700 body-font overflow-hidden">
         <div class="container px-5 py-24 mx-auto">
-            <div class="lg:w-4/5 mx-auto flex flex-wrap">
-                <div class="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
+            <div class="mx-auto flex flex-wrap bg-gray-200 pb-6">
+                <div class="w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
                     <h2 class="text-sm title-font text-gray-500 tracking-widest">@if ($editingExistingUser) Edit User @else Add a New User @endif</h2>
                     <div class="flex mt-6 items-center pb-5">
                         <label class="block">
@@ -26,9 +26,11 @@
 
                     @if ($editingExistingUser)
                     <div class="flex mt-6 items-center pb-5">
-                        <label class="block">
-                            <span class="text-gray-700">Force Password Reset?</span>
-                            <input class="form-input mt-1 block" type="checkbox" wire:model="reset_password">
+                        <label class="md:w-2/3 block text-gray-500 font-bold">
+                            <input class="mr-2 leading-tight" type="checkbox" wire-model="reset_password">
+                            <span class="text-sm">
+                                Force Password Reset?
+                            </span>
                         </label>
                     </div>
                     @endif

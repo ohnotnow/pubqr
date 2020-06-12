@@ -2,7 +2,10 @@
 <div class="min-h-screen py-2 bg-gray-50 sm:px-6 lg:px-8">
 <div class="container mx-auto">
 
-    <h1 class="text-2xl font-bold tracking-wide pb-8">Staff</h1>
+    <div class="flex justify-between items-center">
+        <h1 class="text-2xl font-bold tracking-wide pb-8">Staff</h1>
+        <a href="{{ route('user.create') }}" class="default-link">Add New Staff</a>
+    </div>
     <table class="table-auto w-full">
         <thead>
             <tr>

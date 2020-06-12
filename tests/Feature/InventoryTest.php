@@ -6,6 +6,8 @@ use App\Item;
 use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Livewire;
 use Tests\TestCase;
 
@@ -79,7 +81,7 @@ class InventoryTest extends TestCase
             ->assertSee('Add a new item')
             ->set('item.name', 'Porter 2')
             ->set('item.description', 'A rich chocolate porter')
-            ->set('item.price', '3.84')
+            ->set('price_in_pounds', '3.84')
             ->call('saveItem')
             ->assertRedirect(route('inventory.index'));
 
@@ -100,7 +102,7 @@ class InventoryTest extends TestCase
             ->assertSee('Edit Item')
             ->set('item.name', 'Porter 2')
             ->set('item.description', 'A rich chocolate porter')
-            ->set('item.price', '3.84')
+            ->set('price_in_pounds', '3.84')
             ->call('saveItem')
             ->assertRedirect(route('inventory.index'));
 
@@ -109,6 +111,33 @@ class InventoryTest extends TestCase
         $this->assertEquals('A rich chocolate porter', $updatedItem->description);
         $this->assertEquals(384, $updatedItem->price);
         $this->assertEquals($item->code, $updatedItem->code);
+    }
+
+    /** @test */
+    public function staff_can_upload_an_image_for_the_item()
+    {
+        Storage::fake('images');
+        $staff = factory(User::class)->create();
+        $item = factory(Item::class)->create();
+        $fakeImage = UploadedFile::fake()->image('photo1.jpg');
+
+        Livewire::actingAs($staff)->test('item-editor', ['item' => $item->toArray()])
+            ->assertSee('Edit Item')
+            ->set('item.name', 'Porter 2')
+            ->set('item.description', 'A rich chocolate porter')
+            ->set('price_in_pounds', '3.84')
+            ->set('newImage', $fakeImage)
+            ->call('saveItem')
+            ->assertHasNoErrors()
+            ->assertRedirect(route('inventory.index'));
+
+        $updatedItem = Item::first();
+        $this->assertEquals('Porter 2', $updatedItem->name);
+        $this->assertEquals('A rich chocolate porter', $updatedItem->description);
+        $this->assertEquals(384, $updatedItem->price);
+        $this->assertEquals($item->code, $updatedItem->code);
+        $this->assertNotNull($updatedItem->image);
+        Storage::disk('images')->exists($updatedItem->image);
     }
 
     /** @test */

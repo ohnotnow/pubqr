@@ -19,7 +19,7 @@ class ItemController extends Controller
     public function create()
     {
         return view('item.edit', [
-            'item' => new Item,
+            'item' => Item::makeDefault(),
         ]);
     }
 

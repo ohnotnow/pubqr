@@ -18,8 +18,9 @@ class CreateItemsTable extends Migration
             $table->string('code')->nullable()->unique();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->string('price');
+            $table->unsignedInteger('price');
             $table->boolean('is_available')->default(true);
+            $table->string('image')->nullable();
             $table->timestamps();
         });
     }

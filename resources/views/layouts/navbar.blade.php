@@ -7,10 +7,10 @@
       <span class="ml-3 text-xl">{{ config('app.name') }}</span>
     </a>
     <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
-        <a href="{{ route('order.index') }}" class="mr-5 font-medium text-gray-600 hover:text-gray-500 focus:outline-none focus:underline transition ease-in-out duration-150">Current Orders</a>
-        <a href="{{ route('order.history') }}" class="mr-5 font-medium text-gray-600 hover:text-gray-500 focus:outline-none focus:underline transition ease-in-out duration-150">Order History</a>
-        <a href="{{ route('inventory.index') }}" class="mr-5 font-medium text-gray-600 hover:text-gray-500 focus:outline-none focus:underline transition ease-in-out duration-150">Inventory</a>
-        <a href="{{ route('user.index') }}" class="mr-5 font-medium text-gray-600 hover:text-gray-500 focus:outline-none focus:underline transition ease-in-out duration-150">Staff</a>
+        <a href="{{ route('order.index') }}" class="default-link mr-6 @if (Route::currentRouteName() == 'order.index') border-b-2 @endif">Current Orders</a>
+        <a href="{{ route('order.history') }}" class="default-link mr-6 @if (Route::currentRouteName() == 'order.history') border-b-2 @endif">Order History</a>
+        <a href="{{ route('inventory.index') }}" class="default-link mr-6 @if (Route::currentRouteName() == 'inventory.index') border-b-2 @endif">Inventory</a>
+        <a href="{{ route('user.index') }}" class="default-link mr-6 @if (Route::currentRouteName() == 'user.index') border-b-2 @endif">Staff</a>
     </nav>
     @auth
         <a
