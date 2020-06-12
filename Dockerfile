@@ -96,6 +96,7 @@ RUN if grep -q horizon composer.json; then php /var/www/html/artisan horizon:pub
 RUN ln -sf /run/secrets/.env /var/www/html/.env
 
 #- Clean up and production-cache our apps settings/views/routing
+RUN mkdir -p storage/app/images
 RUN php /var/www/html/artisan storage:link && \
     php /var/www/html/artisan view:cache && \
     # php /var/www/html/artisan route:cache && \
