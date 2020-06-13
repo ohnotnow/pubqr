@@ -35,13 +35,16 @@ class UserEditor extends Component
             $user = User::findOrFail($this->user['id']);
         } else {
             $user = new User;
-            $user->password = bcrypt(Str::random(64));
+            $user->password = bcrypt($this->user['password']);
             $user->can_login = true;
+            $user->force_reset_password = true;
         }
 
         $user->email = $this->user['email'];
         $user->name = $this->user['name'];
-        $user->force_reset_password = $this->reset_password;
+        if ($this->reset_password) {
+            $user->force_reset_password = true;
+        }
         $user->save();
 
         return redirect(route('user.index'));
@@ -59,6 +62,7 @@ class UserEditor extends Component
         return [
             'user.email' => ['required', 'email', Rule::unique('users', 'email')],
             'user.name' => 'required',
+            'user.password' => 'required|min:12',
         ];
     }
 }

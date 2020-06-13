@@ -24,6 +24,18 @@
                         </label>
                     </div>
 
+                    @if (! $editingExistingUser && auth()->user()->isSuperAdmin())
+                    <div class="flex mt-6 items-center pb-5">
+                        <label class="block">
+                            <span class="text-gray-700">Initial Password (min 12 characters - they will change it on first login)</span>
+                            <input class="form-input mt-1 block w-full" type="password" wire:model="user.password">
+                            @error('user.password')
+                            <p class="p-2 text-red-500">{{ $message }}</p>
+                            @enderror
+                        </label>
+                    </div>
+                    @endif
+
                     @if ($editingExistingUser && auth()->user()->isSuperAdmin())
                     <div class="flex mt-6 items-center pb-5">
                         <label class="md:w-2/3 block text-gray-500 font-bold">
