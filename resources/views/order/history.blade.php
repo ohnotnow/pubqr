@@ -13,6 +13,7 @@
         <tr>
             <th class="text-left pl-4">ID</th>
             <th class="text-left pl-4">Item</th>
+            <th class="text-left pl-4">Quantity</th>
             <th class="text-right pr-4">Cost</th>
             <th class="text-left pl-4">Contact</th>
             <th class="text-left pl-4">Status</th>
@@ -28,6 +29,9 @@
                 </td>
                 <td class="border px-4 py-2">
                     {{ $order->item->name }}
+                </td>
+                <td class="border px-4 py-2">
+                    {{ $order->quantity }}
                 </td>
                 <td class="border px-4 py-2 text-right">
                     {{ $order->cost_in_pounds }}

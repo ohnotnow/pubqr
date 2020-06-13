@@ -23,7 +23,7 @@ Route::middleware('guest')->group(function () {
 Route::view('password/reset', 'auth.passwords.email')->name('password.request');
 Route::get('password/reset/{token}', 'Auth\PasswordResetController')->name('password.reset');
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'check_password_reset')->group(function () {
     Route::view('/dashboard', 'welcome')->name('home');
 
     Route::post('logout', 'Auth\LogoutController')->name('logout');
