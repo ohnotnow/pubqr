@@ -51,12 +51,6 @@
                             Remember
                         </label>
                     </div>
-
-                    <div class="text-sm leading-5">
-                        <a href="{{ route('password.request') }}" class="font-medium text-gray-600 hover:text-gray-500 focus:outline-none focus:underline transition ease-in-out duration-150">
-                            Forgot your password?
-                        </a>
-                    </div>
                 </div>
 
                 <div class="mt-6">

@@ -17,116 +17,87 @@ class ResetTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function users_who_have_been_marked_as_force_a_password_reset_are_always_redirected_to_the_reset_page()
+    {
+        $user = factory(User::class)->create(['force_reset_password' => true]);
+
+        $response = $this->actingAs($user)->get(route('home'));
+
+        $response->assertRedirect(route('password.reset'));
+    }
+
+    /** @test */
     public function can_view_password_reset_page()
     {
         $user = factory(User::class)->create();
 
-        $token = Str::random(16);
+        $response = $this->actingAs($user)->get(route('password.reset'));
 
-        DB::table('password_resets')->insert([
-            'email' => $user->email,
-            'token' => Hash::make($token),
-            'created_at' => Carbon::now(),
-        ]);
-
-        $this->get(route('password.reset', [
-            'email' => $user->email,
-            'token' => $token,
-        ]))
-            ->assertSuccessful()
-            ->assertSeeLivewire('auth.passwords.reset');
+        $response->assertSuccessful();
+        $response->assertSeeLivewire('auth.passwords.reset');
     }
 
     /** @test */
     public function can_reset_password()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->create(['force_reset_password' => true]);
+        $originalPasswordHash = $user->password;
 
-        $token = Str::random(16);
-
-        DB::table('password_resets')->insert([
-            'email' => $user->email,
-            'token' => Hash::make($token),
-            'created_at' => Carbon::now(),
-        ]);
-
-        Livewire::test('auth.passwords.reset', [
-            'token' => $token,
-        ])
-            ->set('email', $user->email)
-            ->set('password', 'new-password')
-            ->set('passwordConfirmation', 'new-password')
-            ->call('resetPassword');
-
-        $this->assertTrue(Auth::attempt([
-            'email' => $user->email,
-            'password' => 'new-password',
-        ]));
-    }
-
-    /** @test */
-    public function token_is_required()
-    {
-        Livewire::test('auth.passwords.reset', [
-            'token' => null,
-        ])
+        Livewire::actingAs($user)->test('auth.passwords.reset')
+            ->set('password', 'new-password-123')
+            ->set('passwordConfirmation', 'new-password-123')
             ->call('resetPassword')
-            ->assertHasErrors(['token' => 'required']);
-    }
+            ->assertRedirect(route('home'));
 
-    /** @test */
-    public function email_is_required()
-    {
-        Livewire::test('auth.passwords.reset', [
-            'token' => Str::random(16),
-        ])
-            ->set('email', null)
-            ->call('resetPassword')
-            ->assertHasErrors(['email' => 'required']);
-    }
-
-    /** @test */
-    public function email_is_valid_email()
-    {
-        Livewire::test('auth.passwords.reset', [
-            'token' => Str::random(16),
-        ])
-            ->set('email', 'email')
-            ->call('resetPassword')
-            ->assertHasErrors(['email' => 'email']);
+        $this->assertFalse($user->fresh()->force_reset_password);
+        $this->assertNotEquals($originalPasswordHash, $user->fresh()->password);
     }
 
     /** @test */
     function password_is_required()
     {
-        Livewire::test('auth.passwords.reset', [
-            'token' => Str::random(16),
-        ])
+        $user = factory(User::class)->create(['force_reset_password' => true]);
+
+        Livewire::actingAs($user)->test('auth.passwords.reset')
             ->set('password', '')
+            ->set('passwordConfirmation', '')
             ->call('resetPassword')
-            ->assertHasErrors(['password' => 'required']);
+            ->assertHasErrors('password');
     }
 
     /** @test */
-    function password_is_minimum_of_eight_characters()
+    function password_is_minimum_of_twelve_characters()
     {
-        Livewire::test('auth.passwords.reset', [
-            'token' => Str::random(16),
-        ])
-            ->set('password', 'secret')
+        $user = factory(User::class)->create(['force_reset_password' => true]);
+
+        Livewire::actingAs($user)->test('auth.passwords.reset')
+            ->set('password', 'abcdefghijk')
+            ->set('passwordConfirmation', 'abcdefghijk')
             ->call('resetPassword')
-            ->assertHasErrors(['password' => 'min']);
+            ->assertHasErrors('password');
     }
 
     /** @test */
     function password_matches_password_confirmation()
     {
-        Livewire::test('auth.passwords.reset', [
-            'token' => Str::random(16),
-        ])
-            ->set('password', 'new-password')
-            ->set('passwordConfirmation', 'not-new-password')
+        $user = factory(User::class)->create(['force_reset_password' => true]);
+
+        Livewire::actingAs($user)->test('auth.passwords.reset')
+            ->set('password', 'abcdefghijklm')
+            ->set('passwordConfirmation', 'abcdefghijkLM')
             ->call('resetPassword')
             ->assertHasErrors(['password' => 'same']);
+    }
+
+    /** @test */
+    function newpassword_must_be_different_to_the_old_password()
+    {
+        $user = factory(User::class)->create(['force_reset_password' => true, 'password' => bcrypt('myamazingpassword')]);
+
+        Livewire::actingAs($user)->test('auth.passwords.reset')
+            ->set('password', 'myamazingpassword')
+            ->set('passwordConfirmation', 'myamazingpassword')
+            ->call('resetPassword')
+            ->assertHasErrors('password');
     }
 }

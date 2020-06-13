@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->boolean('can_login')->default(true);
             $table->boolean('is_superadmin')->default(false);
             $table->string('password');
+            $table->boolean('force_reset_password')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

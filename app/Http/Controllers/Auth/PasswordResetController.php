@@ -6,10 +6,8 @@ use App\Http\Controllers\Controller;
 
 class PasswordResetController extends Controller
 {
-    public function __invoke($token)
+    public function __invoke()
     {
-        return view('auth.passwords.reset', [
-            'token' => $token,
-        ]);
+        return view('auth.passwords.reset');
     }
 }

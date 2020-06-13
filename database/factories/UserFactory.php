@@ -26,6 +26,7 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
         'can_login' => true,
         'is_superadmin' => false,
+        'force_reset_password' => false,
     ];
 });
 

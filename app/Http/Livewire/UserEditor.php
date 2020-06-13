@@ -41,11 +41,8 @@ class UserEditor extends Component
 
         $user->email = $this->user['email'];
         $user->name = $this->user['name'];
+        $user->force_reset_password = $this->reset_password;
         $user->save();
-
-        if ($this->reset_password) {
-            $response = $this->broker()->sendResetLink(['email' => $user->email]);
-        }
 
         return redirect(route('user.index'));
     }
@@ -63,15 +60,5 @@ class UserEditor extends Component
             'user.email' => ['required', 'email', Rule::unique('users', 'email')],
             'user.name' => 'required',
         ];
-    }
-
-    /**
-     * Get the broker to be used during password reset.
-     *
-     * @return \Illuminate\Contracts\Auth\PasswordBroker
-     */
-    protected function broker()
-    {
-        return Password::broker();
     }
 }

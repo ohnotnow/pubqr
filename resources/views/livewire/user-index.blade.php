@@ -23,9 +23,13 @@
             @foreach ($users as $user)
             <tr class="hover:bg-gray-100">
                 <td class="border px-4 py-2">
+                    @superadmin
                     <a href="{{ route('user.edit', $user->id) }}" class="default-link">
                         {{ $user->name }}
                     </a>
+                    @else
+                        {{ $user->name }}
+                    @endsuperadmin
                 </td>
                 <td class="border px-4 py-2">{{ $user->email }}</td>
                 <td class="border px-4 py-2">{{ $user->login_at ? $user->login_at->format('d/m/Y H:i') : 'N/A' }}</td>

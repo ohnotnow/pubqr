@@ -24,10 +24,10 @@
                         </label>
                     </div>
 
-                    @if ($editingExistingUser)
+                    @if ($editingExistingUser && auth()->user()->isSuperAdmin())
                     <div class="flex mt-6 items-center pb-5">
                         <label class="md:w-2/3 block text-gray-500 font-bold">
-                            <input class="mr-2 leading-tight" type="checkbox" wire-model="reset_password">
+                            <input class="mr-2 leading-tight" type="checkbox" wire:model="reset_password">
                             <span class="text-sm">
                                 Force Password Reset?
                             </span>

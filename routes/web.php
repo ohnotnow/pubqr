@@ -20,10 +20,11 @@ Route::middleware('guest')->group(function () {
     Route::view('login', 'auth.login')->name('login');
 });
 
-Route::view('password/reset', 'auth.passwords.email')->name('password.request');
-Route::get('password/reset/{token}', 'Auth\PasswordResetController')->name('password.reset');
+// Route::view('password/reset', 'auth.passwords.email')->name('password.request');
 
-Route::middleware('auth', 'check_password_reset')->group(function () {
+Route::middleware('auth', 'reset.password')->group(function () {
+    Route::get('password/reset', 'Auth\PasswordResetController')->name('password.reset')->withoutMiddleware('reset.password');
+
     Route::view('/dashboard', 'welcome')->name('home');
 
     Route::post('logout', 'Auth\LogoutController')->name('logout');

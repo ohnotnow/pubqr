@@ -150,7 +150,6 @@ class UserManagementTest extends TestCase
     /** @test */
     public function super_admins_can_create_new_users()
     {
-        Mail::fake();
         $superAdmin = factory(User::class)->states('superadmin')->create();
 
         Livewire::actingAs($superAdmin)
@@ -165,13 +164,11 @@ class UserManagementTest extends TestCase
         $this->assertEquals('fred@example.com', $user->email);
         $this->assertNotNull($user->password);
         $this->assertTrue($user->canLogIn());
-        Mail::assertNothingQueued();
     }
 
     /** @test */
     public function super_admins_can_edit_existing_users()
     {
-        Mail::fake();
         $superAdmin = factory(User::class)->states('superadmin')->create();
         $user = factory(User::class)->create();
 
@@ -187,7 +184,6 @@ class UserManagementTest extends TestCase
         $this->assertEquals('fred@example.com', $user->email);
         $this->assertNotNull($user->password);
         $this->assertTrue($user->canLogIn());
-        Mail::assertNothingQueued();
     }
 
     /** @test */
@@ -204,8 +200,6 @@ class UserManagementTest extends TestCase
             ->call('save')
             ->assertRedirect(route('user.index'));
 
-        Notification::assertSentTo(
-            [$user], ResetPassword::class
-        );
+        $this->assertTrue($user->fresh()->force_reset_password);
     }
 }

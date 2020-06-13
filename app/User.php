@@ -38,6 +38,7 @@ class User extends Authenticatable
         'can_login' => 'boolean',
         'is_superadmin' => 'boolean',
         'login_at' => 'datetime',
+        'force_reset_password' => 'boolean',
     ];
 
     public function updateLoginDate()
@@ -66,5 +67,10 @@ class User extends Authenticatable
     {
         $this->can_login = ! $this->can_login;
         $this->save();
+    }
+
+    public function mustChangeTheirPassword()
+    {
+        return $this->force_reset_password;
     }
 }

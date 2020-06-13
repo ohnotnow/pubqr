@@ -3,8 +3,6 @@
 
 @section('content')
     <div>
-        @livewire('auth.passwords.reset', [
-            'token' => $token
-        ])
+        @livewire('auth.passwords.reset')
     </div>
 @endsection
