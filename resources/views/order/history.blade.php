@@ -4,7 +4,10 @@
 <div class="min-h-screen py-2 bg-gray-50 sm:px-6 lg:px-8">
 <div class="container mx-auto">
 
-<h1 class="text-2xl font-bold tracking-wide pb-8">Order History</h1>
+<div class="flex justify-between items-center pb-8">
+    <h1 class="text-2xl font-bold tracking-wide">Order History</h1>
+    <a href="{{ route('order.history.export') }}" data-turbolinks="false" class="default-link">Export to Excel</a>
+</div>
 <table class="table-auto w-full">
     <thead>
         <tr>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = ['contact', 'quantity', 'item_id'];
+    protected $fillable = ['contact', 'quantity', 'item_id', 'cost'];
 
     protected $casts = [
         'is_fulfilled' => 'boolean',
@@ -46,7 +46,7 @@ class Order extends Model
 
     public function getCostInPoundsAttribute()
     {
-        return number_format(($this->item->price * $this->quantity) / 100, 2);
+        return number_format($this->cost / 100, 2);
     }
 
     public function getStatus()

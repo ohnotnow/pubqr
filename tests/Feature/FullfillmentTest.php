@@ -88,4 +88,16 @@ class FullfillmentTest extends TestCase
         $response->assertSee($order2->id);
         $response->assertSee($order2->item->name);
     }
+
+    /** @test */
+    public function staff_can_export_the_order_history_as_an_excel_file()
+    {
+        $this->markTestSkipped('Cant figure out how to test spaties excel streams - see https://github.com/spatie/simple-excel/issues/17#issuecomment-559687663');
+        $this->withoutExceptionHandling();
+        $admin = factory(User::class)->states('superadmin')->create();
+
+        $response = $this->actingAs($admin)->get(route('order.history.export'));
+
+        $response->assertOk();
+    }
 }

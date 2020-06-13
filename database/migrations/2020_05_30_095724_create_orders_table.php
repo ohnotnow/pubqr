@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('item_id')->constrained()->onDelete('cascade');
             $table->string('contact');
             $table->unsignedInteger('quantity')->default(1);
+            $table->unsignedInteger('cost')->default(0);
             $table->boolean('is_fulfilled')->default(false);
             $table->boolean('is_cancelled')->default(false);
             $table->boolean('is_paid')->default(false);

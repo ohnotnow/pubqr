@@ -58,6 +58,7 @@ class OrderItem extends Component
             'contact' => $this->contact,
             'quantity' => $this->quantity,
             'item_id' => $this->item->id,
+            'cost' => $this->quantity * $this->item->price,
         ]);
 
         $this->saved = true;

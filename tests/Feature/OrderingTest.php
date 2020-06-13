@@ -57,6 +57,7 @@ class OrderingTest extends TestCase
             $this->assertEquals('07123 4567891', $order->contact);
             $this->assertEquals(2, $order->quantity);
             $this->assertTrue($order->item->is($item));
+            $this->assertEquals($item->price * 2, $order->cost);
         });
     }
 

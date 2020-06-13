@@ -13,7 +13,7 @@ class OpenCloseToggle extends Component
     public function mount()
     {
         $this->open = option('is_open', false);
-        $this->buttonText = $this->open ? 'Close the bar' : 'Open the bar';
+        $this->buttonText = $this->open ? 'Close the shop' : 'Open the shop';
     }
 
     public function render()
@@ -25,6 +25,6 @@ class OpenCloseToggle extends Component
     {
         option(['is_open' => ! option('is_open', false)]);
         $this->open = option('is_open');
-        $this->buttonText = $this->open ? 'Close the bar' : 'Open the bar';
+        $this->buttonText = $this->open ? 'Close the shop' : 'Open the shop';
     }
 }

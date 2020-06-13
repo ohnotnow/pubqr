@@ -11,6 +11,7 @@ $factory->define(Order::class, function (Faker $faker) {
         'item_id' => function () {
             return factory(Item::class)->create()->id;
         },
+        'cost' => $faker->numberBetween(100, 1000),
         'contact' => $faker->word,
         'quantity' => $faker->numberBetween(1, 4),
         'is_fulfilled' => false,

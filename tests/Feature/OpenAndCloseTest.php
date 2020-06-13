@@ -30,14 +30,14 @@ class OpenAndCloseTest extends TestCase
 
         Livewire::actingAs($staff)
             ->test('open-close-toggle')
-            ->assertDontSee('Close the bar')
-            ->assertSee('Open the bar')
+            ->assertDontSee('Close the shop')
+            ->assertSee('Open the shop')
             ->call('toggleOpen')
-            ->assertSee('Close the bar')
-            ->assertDontSee('Open the bar')
+            ->assertSee('Close the shop')
+            ->assertDontSee('Open the shop')
             ->call('toggleOpen')
-            ->assertDontSee('Close the bar')
-            ->assertSee('Open the bar');
+            ->assertDontSee('Close the shop')
+            ->assertSee('Open the shop');
     }
 
     /** @test */

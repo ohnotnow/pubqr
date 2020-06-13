@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('bar/orders', 'OrderController@index')->name('order.index');
     Route::get('bar/history', 'OrderHistoryController@index')->name('order.history');
+    Route::get('bar/history/export', 'OrderHistoryExportController@show')->name('order.history.export');
 
     Route::get('inventory', 'InventoryController@index')->name('inventory.index');
 
