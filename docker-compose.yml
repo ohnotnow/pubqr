@@ -9,13 +9,13 @@ x-env:
     APP_KEY: base64:hBXltRdGQv9/dJc14Sci1jGO2xiofSgcGpqiKUqR66A=
     APP_DEBUG: 1
     APP_URL: http://localhost
-    MAIL_DRIVER: smtp
-    MAIL_HOST: mailhog
-    MAIL_PORT: 1025
+    MAIL_DRIVER: log
     REDIS_HOST: redis
     QUEUE_CONNECTION: redis
     SESSION_DRIVER: redis
     DB_CONNECTION: sqlite
+    DB_DATABASE: /database/database.sqlite
+    DB_FOREIGN_KEYS: 1
     PUBQR_DEMO: ${PUBQR_DEMO}
     PUBQR_ADMIN_EMAIL: ${PUBQR_ADMIN_EMAIL}
     PUBQR_ADMIN_NAME: ${PUBQR_ADMIN_NAME}
@@ -38,15 +38,11 @@ services:
     build:
       context: .
       target: dev
-    # volumes:
-    #   - .:/var/www/html
-    # secrets:
-    #   - source: dotenv
-    #     target: .env
+    volumes:
+      - database:/database
+      - images:/var/www/html/storage/app/images
     depends_on:
       - redis
-      # - mysql
-      # - mailhog
 
   redis:
     image: redis:5.0.4
@@ -63,13 +59,10 @@ services:
   #     MYSQL_USER: homestead
   #     MYSQL_PASSWORD: secret
 
-  # mailhog:
-  #   image: mailhog/mailhog
-  #   ports:
-  #     - "3025:8025"
-
 volumes:
   redis:
     driver: "local"
-  mysql:
+  database:
+    driver: "local"
+  images:
     driver: "local"

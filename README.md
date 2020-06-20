@@ -21,7 +21,7 @@ and pay for them with a minimum of set up and no need for online payment process
 
 To get a quick demo - the easiest way by far is to install [Docker](https://docs.docker.com/engine/install/) and then run :
 ```
-IMAGE_NAME=pubqr:1.0
+export IMAGE_NAME=pubqr:1.0
 docker build -t ${IMAGE_NAME} .
 PUBQR_DEMO=1 docker-compose up
 ```

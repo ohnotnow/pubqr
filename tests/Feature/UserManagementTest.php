@@ -157,6 +157,7 @@ class UserManagementTest extends TestCase
             ->assertSee('Add a New User')
             ->set('user.name', 'fred')
             ->set('user.email', 'fred@example.com')
+            ->set('user.password', 'myamazingpassword')
             ->call('save')
             ->assertRedirect(route('user.index'));
 
@@ -164,6 +165,7 @@ class UserManagementTest extends TestCase
         $this->assertEquals('fred@example.com', $user->email);
         $this->assertNotNull($user->password);
         $this->assertTrue($user->canLogIn());
+        $this->assertTrue($user->force_reset_password);
     }
 
     /** @test */
@@ -187,7 +189,7 @@ class UserManagementTest extends TestCase
     }
 
     /** @test */
-    public function super_admins_can_force_a_user_to_reset_their_password()
+    public function super_admins_can_force_an_existing_user_to_reset_their_password()
     {
         Notification::fake();
         $superAdmin = factory(User::class)->states('superadmin')->create();

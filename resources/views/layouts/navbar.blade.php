@@ -13,6 +13,7 @@
         <a href="{{ route('user.index') }}" class="default-link mr-6 @if (Route::currentRouteName() == 'user.index') border-b-2 @endif">Staff</a>
         @superadmin
         <a href="{{ route('download.backup') }}" data-turbolinks="false" class="default-link mr-6">Backup</a>
+        @livewire('database-restorer')
         @endsuperadmin
     </nav>
     @auth

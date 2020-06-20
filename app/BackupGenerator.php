@@ -19,7 +19,8 @@ class BackupGenerator
         })->each(function ($item) use ($zip) {
             $zip->addFile(Storage::disk('images')->path($item->image), 'images/' . $item->image);
         });
-        $zip->addFile(database_path('database.sqlite'), 'database.sqlite');
+
+        $zip->addFile(config('database.connections.sqlite.database'), 'database.sqlite');
         $zip->close();
 
         return $zipFile;

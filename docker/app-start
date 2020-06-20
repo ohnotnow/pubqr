@@ -21,8 +21,8 @@ done
 php /var/www/html/artisan config:cache
 
 if [ "$role" = "app" ]; then
-    touch database/database.sqlite
-    chown -R www-data database
+    touch /database/database.sqlite
+    chown -R www-data /database
     php artisan migrate
     if [ -n "$demo" ]; then
         php artisan pubqr:createdemodata

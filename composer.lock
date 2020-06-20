@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c45a4450de532dddb4b7e91f2d1e4f43",
+    "content-hash": "a05ca90c90cb640bcba1e8bcbf011132",
     "packages": [
         {
             "name": "appstract/laravel-options",
@@ -1863,6 +1863,66 @@
                 "serialize"
             ],
             "time": "2020-06-07T11:41:29+00:00"
+        },
+        {
+            "name": "orkhanahmadov/laravel-zip-validator",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/orkhanahmadov/laravel-zip-validator.git",
+                "reference": "b8c97c0d2411f64a176bbab1d41fa71832f49e62"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/orkhanahmadov/laravel-zip-validator/zipball/b8c97c0d2411f64a176bbab1d41fa71832f49e62",
+                "reference": "b8c97c0d2411f64a176bbab1d41fa71832f49e62",
+                "shasum": ""
+            },
+            "require": {
+                "ext-zip": "*",
+                "illuminate/contracts": "^6.0|^7.0",
+                "illuminate/http": "^6.0|^7.0",
+                "illuminate/support": "^6.0|^7.0",
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0|^5.0",
+                "phpunit/phpunit": "^8.0|^9.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Orkhanahmadov\\ZipValidator\\ZipValidatorServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Orkhanahmadov\\ZipValidator\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Orkhan Ahmadov",
+                    "email": "ahmadov90@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Laravel ZIP file content validator",
+            "homepage": "https://github.com/orkhanahmadov/laravel-zip-validator",
+            "keywords": [
+                "laravel",
+                "orkhanahmadov",
+                "validation",
+                "zip",
+                "zip validation"
+            ],
+            "time": "2020-03-04T11:09:43+00:00"
         },
         {
             "name": "phpoption/phpoption",
