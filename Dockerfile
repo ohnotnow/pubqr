@@ -1,5 +1,5 @@
 ### PHP version we are targetting
-ARG PHP_VERSION=7.4
+ARG PHP_VERSION=rc
 
 
 ### Placeholder for basic dev stage for use with docker-compose
@@ -53,6 +53,7 @@ RUN composer install \
     --no-plugins \
     --no-scripts \
     --no-dev \
+    --ignore-platform-reqs \
     --prefer-dist
 
 ### QA php dependencies
@@ -64,6 +65,7 @@ RUN composer install \
     --no-interaction \
     --no-plugins \
     --no-scripts \
+    --ignore-platform-reqs \
     --prefer-dist
 
 ### And build the prod app
