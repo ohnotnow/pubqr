@@ -10,7 +10,9 @@
             <input class="bg-white rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2 mb-4" type="text" name="contact_number" x-ref="datepicker" wire:model="date" placeholder="dd/mm/yyyy">
         </div>
 
-        <table class="table-auto w-full">
+        {{ $customers->links() }}
+
+        <table class="table-auto w-full mb-8">
             <thead>
                 <tr>
                     <th class="text-left pl-4">Name</th>
@@ -25,7 +27,9 @@
                         {{ decrypt($customer->contact_name) }}
                     </td>
                     <td class="border px-4 py-2">
-                        {{ decrypt($customer->contact_number) }}
+                        <a href="tel:{{ decrypt($customer->contact_number) }}" class="default-link">
+                            {{ decrypt($customer->contact_number) }}
+                        </a>
                     </td>
                     <td class="border px-4 py-2">
                         {{ $customer->created_at->format('d/m/Y H:i') }}
@@ -34,6 +38,7 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $customers->links() }}
     </div>
 </div>
 

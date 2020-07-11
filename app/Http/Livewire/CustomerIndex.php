@@ -3,23 +3,21 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
+use Livewire\WithPagination;
 use App\Customer;
 use Carbon\Carbon;
 
 class CustomerIndex extends Component
 {
-    public $customers;
+    use WithPagination;
 
     public $date = null;
 
-    public function mount()
-    {
-        $this->customers = Customer::orderByDesc('created_at')->get();
-    }
-
     public function render()
     {
-        return view('livewire.customer-index');
+        return view('livewire.customer-index', [
+            'customers' => $this->getCustomers(),
+        ]);
     }
 
     public function updated($field)
@@ -31,12 +29,16 @@ class CustomerIndex extends Component
 
     public function updatedDate($newDate)
     {
-        if (! $newDate) {
-            $this->customers = Customer::orderByDesc('created_at')->get();
-            return;
+        $this->resetPage(); 
+    }
+
+    public function getCustomers()
+    {
+        if (! $this->date) {
+            return Customer::orderByDesc('created_at')->paginate(100);
         }
 
-        $carbonDate = Carbon::createFromFormat('d/m/Y', $newDate);
-        $this->customers = Customer::orderByDesc('created_at')->whereDate('created_at', $carbonDate->format('Y-m-d'))->get();
+        $carbonDate = Carbon::createFromFormat('d/m/Y', $this->date);
+        return Customer::orderByDesc('created_at')->whereDate('created_at', $carbonDate->format('Y-m-d'))->paginate(100);
     }
 }
