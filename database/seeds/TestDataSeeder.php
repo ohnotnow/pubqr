@@ -3,6 +3,7 @@
 use App\Item;
 use App\Order;
 use App\User;
+use App\Customer;
 use Illuminate\Database\Seeder;
 
 class TestDataSeeder extends Seeder
@@ -20,5 +21,8 @@ class TestDataSeeder extends Seeder
         }
         factory(Item::class, 10)->create();
         factory(Order::class, 10)->create();
+        foreach (range(1, 10) as $day) {
+            factory(Customer::class, rand(10, 100))->create(["created_at" => now()->subDays($day)]);
+        }
     }
 }
