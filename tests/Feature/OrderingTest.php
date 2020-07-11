@@ -13,6 +13,14 @@ class OrderingTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+
+        session(['contact_name' => 'Jenny']);
+        session(['contact_number' => '0123456789']);
+    }
+
     /** @test */
     public function customers_can_see_the_details_for_an_item_by_visiting_its_webpage()
     {
