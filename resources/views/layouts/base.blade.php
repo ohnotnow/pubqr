@@ -23,6 +23,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @stack('styles')
+
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
 
 </head>
@@ -43,6 +45,7 @@
     @endif
 
     @livewireScripts
+    @stack('scripts')
 </body>
 
 </html>

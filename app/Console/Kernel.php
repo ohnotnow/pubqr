@@ -25,6 +25,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('inspire')->hourly();
+        $schedule->command('pubqr:purge-old-customer-records')->dailyAt('06:00');
     }
 
     /**

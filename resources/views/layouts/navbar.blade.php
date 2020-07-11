@@ -9,6 +9,7 @@
     <nav class="md:mr-auto md:ml-4 md:py-1 md:pl-4 md:border-l md:border-gray-400	flex flex-wrap items-center text-base justify-center">
         <a href="{{ route('order.index') }}" class="default-link mr-6 @if (Route::currentRouteName() == 'order.index') border-b-2 @endif">Current Orders</a>
         <a href="{{ route('order.history') }}" class="default-link mr-6 @if (Route::currentRouteName() == 'order.history') border-b-2 @endif">Order History</a>
+        <a href="{{ route('customer.index') }}" class="default-link mr-6 @if (Route::currentRouteName() == 'customer.index') border-b-2 @endif">Customers</a>
         <a href="{{ route('inventory.index') }}" class="default-link mr-6 @if (Route::currentRouteName() == 'inventory.index') border-b-2 @endif">Inventory</a>
         <a href="{{ route('user.index') }}" class="default-link mr-6 @if (Route::currentRouteName() == 'user.index') border-b-2 @endif">Staff</a>
         @superadmin

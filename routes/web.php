@@ -13,8 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::livewire('/', 'inventory-list');
-Route::get('qr/{code}', 'ItemController@show')->name('item.show');
+Route::get('contact-number', 'ContactDetailsController@create')->name('contact-number.create');
+Route::post('contact-number', 'ContactDetailsController@store')->name('contact-number.store');
+
+Route::middleware('has-contact-details')->group(function () {
+    Route::livewire('/', 'inventory-list')->name('customer.home');
+
+    Route::get('qr/{code}', 'ItemController@show')->name('item.show');
+});
 
 Route::middleware('guest')->group(function () {
     Route::view('login', 'auth.login')->name('login');
@@ -43,6 +49,8 @@ Route::middleware('auth', 'reset.password')->group(function () {
     Route::livewire('user', 'user-index')->name('user.index');
     Route::get('user/{user}/edit', 'UserController@edit')->name('user.edit');
     Route::get('user/create', 'UserController@create')->name('user.create');
+
+    Route::get('customers', 'ContactDetailsController@index')->name('customer.index');
 
     Route::get('backup', 'BackupController@show')->name('download.backup');
 });
