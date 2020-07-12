@@ -18,6 +18,7 @@ class OrderItem extends Component
     {
         $this->item = $item;
         $this->orderCost = $this->quantity * $this->item->price;
+        $this->contact = trim(session('contact_name'));
     }
 
     public function render()

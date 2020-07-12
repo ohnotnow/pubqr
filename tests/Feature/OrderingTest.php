@@ -82,7 +82,7 @@ class OrderingTest extends TestCase
             ->assertSee($item->name)
             ->assertSee($item->description)
             ->assertSee($item->price_in_pounds)
-            ->assertSee('Bar is currently closed')
+            ->assertSee('We are currently closed')
             ->assertSee('Quantity')
             ->assertSee('Contact Details')
             ->assertSee('I am 18 or older and agree to pay')
